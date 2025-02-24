@@ -1,0 +1,77 @@
+<odoo>
+    <record id="view_mi_modelo_generico_tree" model="ir.ui.view">
+        <field name="name">mi.modelo.generico.tree</field>
+        <field name="model">mi.modelo.generico</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="usuario_responsable"/>
+                <field name="fecha_creacion"/>
+                <field name="fecha_caducidad"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mi_modelo_generico_form" model="ir.ui.view">
+        <field name="name">mi.modelo.generico.form</field>
+        <field name="model">mi.modelo.generico</field>
+        <field name="arch" type="xml">
+            <form string="Mi Modelo Genérico">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="descripcion"/>
+                        <field name="usuario_responsable"/>
+                        <field name="fecha_creacion"/>
+                        <field name="fecha_caducidad"/>
+                        <field name="state"/>
+                    </group>
+                    <footer>
+                        <button name="action_en_proceso" type="object" string="En Proceso" class="btn-primary" attrs="{'invisible': [('state', '!=', 'borrador')]}"/>
+                        <button name="action_completar" type="object" string="Completar" class="btn-success" attrs="{'invisible': [('state', '!=', 'proceso')]}"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
+<!-- 
+    En caso de que quisieramos hacerlo como Kanban
+    <odoo>
+    <record id="view_mi_modelo_generico_kanban" model="ir.ui.view">
+        <field name="name">mi.modelo.generico.kanban</field>
+        <field name="model">mi.modelo.generico</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_view">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <strong><t t-esc="record.name.value"/></strong>
+
+                            <div>
+                                <span>Responsable: <t t-esc="record.usuario_responsable.value"/></span>
+                            </div>
+
+                            <div>
+                                <span>Creación: <t t-esc="record.fecha_creacion.value"/></span>
+                            </div>
+
+                            <div>
+                                <span>Caduca: <t t-esc="record.fecha_caducidad.value"/></span>
+                            </div>
+
+                            <div>
+                                <span class="badge badge-primary" t-if="record.state.raw_value == 'borrador'">Borrador</span>
+                                <span class="badge badge-warning" t-if="record.state.raw_value == 'proceso'">En Proceso</span>
+                                <span class="badge badge-success" t-if="record.state.raw_value == 'completado'">Completado</span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>
+
+-->
